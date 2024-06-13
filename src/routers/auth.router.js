@@ -11,8 +11,15 @@ import {
   HASH_SALT_ROUNDS,
 } from '../constants/auth.constant.js';
 import { ACCESS_TOKEN_SECRET } from '../constants/env.constant.js';
+import { authController } from '../controllers/auth.controller.js';
 
 const authRouter = express.Router();
+
+const AuthController = new authController()
+
+authRouter.post('/sign-up', AuthController.authSignUp)
+
+authRouter.post('/sign-in', AuthController.authSignIn)
 
 authRouter.post('/sign-up', signUpValidator, async (req, res, next) => {
   try {

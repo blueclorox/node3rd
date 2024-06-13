@@ -6,4 +6,20 @@ export class usersRepository {
 
         return userData
     }
+
+    getUserEmail = async (email) => {
+        const existedUser = await prisma.user.findUnique({ where: { email }})
+
+        return existedUser
+    }
+
+    postUser = async (email, password, name) => {
+        const postUser = await prisma.user.create({
+            data: {
+                email, password, name
+            }
+        })
+
+        return postUser
+    }
 }

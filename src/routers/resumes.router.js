@@ -10,15 +10,15 @@ const resumesRouter = express.Router();
 
 const ResumesController = new resumesController()
 
-resumesRouter.post('/resumes', ResumesController.postResumes)
+resumesRouter.post('/', ResumesController.postResumes)
 
-resumesRouter.get('/resumes', ResumesController.getResumes)
+resumesRouter.get('/', ResumesController.getResumes)
 
-resumesRouter.get('/resumes/:id', ResumesController.detailResumes)
+resumesRouter.get('/:id', ResumesController.detailResumes)
 
-resumesRouter.patch('/resumes', ResumesController.patchResumes)
+resumesRouter.patch('/:id', ResumesController.patchResumes)
 
-resumesRouter.delete('/resumes', ResumesController.deleteResumes)
+resumesRouter.delete('/:id', ResumesController.deleteResumes)
 
 
 // 이력서 생성

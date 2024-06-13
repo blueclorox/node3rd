@@ -7,7 +7,7 @@ export class usersController {
 
     getUser = async (req, res, next) => {
         try{
-            const data = await usersRepository.getUser()
+            const data = await this.usersRepository.getUser()
 
             return res.status(HTTP_STATUS.OK).json({
                 status: HTTP_STATUS.OK,
