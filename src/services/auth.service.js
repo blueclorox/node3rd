@@ -2,6 +2,9 @@ import { usersRepository } from "../repositories/users.repository.js";
 import bcrypt from 'bcrypt'
 import { HASH_SALT_ROUNDS } from "../constants/auth.constant.js";
 import { HTTP_STATUS } from "../constants/http-status.constant.js";
+import { ACCESS_TOKEN_EXPIRES_IN } from "../constants/auth.constant.js";
+import { ACCESS_TOKEN_SECRET } from "../constants/env.constant.js";
+import jwt from 'jsonwebtoken'
 
 export class authService {
     usersRepository = new usersRepository()
@@ -30,8 +33,23 @@ export class authService {
 
     authSignIn = async (email, password) => {
         
-        const authSignIn = await this.usersRepository.getUser()
+        const authSignIn = await this.usersRepository.getUserEmail(email)
 
-        return authSignIn
+        const isPasswordMatched = authSignIn && bcrypt.compareSync(password, authSignIn.password);
+
+        if(!isPasswordMatched){
+            return HTTP_STATUS.UNAUTHORIZED
+        }
+
+        else{
+            const payload = { id: authSignIn.id };
+
+            const accessToken = jwt.sign(payload, ACCESS_TOKEN_SECRET, {
+            expiresIn: ACCESS_TOKEN_EXPIRES_IN,
+            });
+
+            return accessToken
+        }
+
     }
 }

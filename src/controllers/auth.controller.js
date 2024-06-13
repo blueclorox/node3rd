@@ -31,7 +31,20 @@ export class authController {
             const { email, password } = req.body
 
             const authSignIn = await this.authService.authSignIn(email, password)
-            
+
+            if(authSignIn == HTTP_STATUS.UNAUTHORIZED){
+                return res.status(HTTP_STATUS.UNAUTHORIZED).json({
+                    status: HTTP_STATUS.UNAUTHORIZED,
+                    message: MESSAGES.AUTH.COMMON.UNAUTHORIZED,
+                })
+            }
+            else{
+                return res.status(HTTP_STATUS.OK).json({
+                    status: HTTP_STATUS.OK,
+                    message: MESSAGES.AUTH.SIGN_IN.SUCCEED,
+                    authSignIn
+                })
+            }
             
         }catch(error){
             next(error)
