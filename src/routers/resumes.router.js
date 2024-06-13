@@ -4,8 +4,22 @@ import { MESSAGES } from '../constants/message.constant.js';
 import { createResumeValidator } from '../middlewares/validators/create-resume-validator.middleware.js';
 import { prisma } from '../utils/prisma.util.js';
 import { updateResumeValidator } from '../middlewares/validators/updated-resume-validator.middleware.js';
+import { resumesController } from '../controllers/resumes.controller.js';
 
 const resumesRouter = express.Router();
+
+const ResumesController = new resumesController()
+
+resumesRouter.post('/resumes', ResumesController.postResumes)
+
+resumesRouter.get('/resumes', ResumesController.getResumes)
+
+resumesRouter.get('/resumes/:id', ResumesController.detailResumes)
+
+resumesRouter.patch('/resumes', ResumesController.patchResumes)
+
+resumesRouter.delete('/resumes', ResumesController.deleteResumes)
+
 
 // 이력서 생성
 resumesRouter.post('/', createResumeValidator, async (req, res, next) => {
