@@ -3,23 +3,33 @@ import { resumesRepository } from "../repositories/resumes.repository.js";
 export class resumesService {
     resumesRepository = new resumesRepository();
 
-    postResumes = async () => {
-        const resumes = await this.resumesRepository.postResumes()
+    postResumes = async (authorId, title, content) => {
+
+        const data = { authorId, title, content }
+
+        const postResumes = await this.resumesRepository.postResumes(data)
+
+        return postResumes
     }
 
-    getResumes = async () => {
-        const resumes = await this.resumesRepository.getResumes()
+    detailResumes = async (id) => {
+
+        const detailResumes = await this.resumesRepository.detailResumes(id)
+
+        return detailResumes
     }
 
-    detailResumes = async () => {
-        const resumes = await this.resumesRepository.detailResumes()
+    putResumes = async (authorId, id, title, content) => {
+
+        const putResumes = await this.resumesRepository.putResumes(authorId, id, title, content)
+
+        return putResumes
     }
 
-    patchResumes = async () => {
-        const resumes = await this.resumesRepository.patchResumes()
-    }
+    deleteResumes = async (id) => {
 
-    deleteResumes = async () => {
-        const resumes = await this.resumesRepository.deleteResumes()
+        const deleteResumes = await this.resumesRepository.deleteResumes(id)
+
+        return deleteResumes
     }
 }

@@ -10,13 +10,13 @@ const resumesRouter = express.Router();
 
 const ResumesController = new resumesController()
 
-resumesRouter.post('/', ResumesController.postResumes)
+resumesRouter.post('/', createResumeValidator, ResumesController.postResumes)
 
 resumesRouter.get('/', ResumesController.getResumes)
 
 resumesRouter.get('/:id', ResumesController.detailResumes)
 
-resumesRouter.patch('/:id', ResumesController.patchResumes)
+resumesRouter.put('/:id', updateResumeValidator, ResumesController.putResumes)
 
 resumesRouter.delete('/:id', ResumesController.deleteResumes)
 

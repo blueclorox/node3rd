@@ -33,7 +33,7 @@ export class authService {
 
     authSignIn = async (email, password) => {
         
-        const authSignIn = await this.usersRepository.getUserEmail(email)
+        const authSignIn = await this.usersRepository.getUser(email)
 
         const isPasswordMatched = authSignIn && bcrypt.compareSync(password, authSignIn.password);
 
